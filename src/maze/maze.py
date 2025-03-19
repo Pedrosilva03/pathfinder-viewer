@@ -8,3 +8,5 @@ def generateMaze():
     maze = [[Spot() for row in range(rows)] for col in range(cols)]
 
     # Add obstacles
+
+    return maze
