@@ -5,7 +5,12 @@ cols = 10
 
 def generateMaze():
     # Generate grid
-    maze = [[Spot() for row in range(rows)] for col in range(cols)]
+    maze = []
+    for col in range(cols):
+        colList = []
+        for row in range(rows):
+            colList.append(Spot(col, row))
+        maze.append(colList)
 
     # Add obstacles
 
