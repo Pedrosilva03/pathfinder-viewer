@@ -70,7 +70,7 @@ class Spot:
         return self.h
     
     def setWallStatus(self):
-        if random.randint(0, 3) == 3:
+        if random.randint(0, 1) == 1:
             return True
         return False
     

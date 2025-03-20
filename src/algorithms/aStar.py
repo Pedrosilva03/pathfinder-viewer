@@ -11,8 +11,6 @@ def aStarSimulation(ui, maze):
 
     cameFrom = []
 
-    backTrack = []
-
     openSet.append(start)
 
     while len(openSet) > 0:
@@ -26,7 +24,7 @@ def aStarSimulation(ui, maze):
         # Checks if it got to the end
         if current is end:
             while True:
-                backTrack.append(current)
+                cameFrom.append(current)
                 if current.getCameFrom() is None:
                     break
                 current = current.getCameFrom()
@@ -59,7 +57,11 @@ def aStarSimulation(ui, maze):
 
     # Draws the way back
 
-    for pathSpot in backTrack:
-        ui.drawCell(pathSpot, "blue", maze)
+    if len(cameFrom) == 0:
+        print("No path found")
+    else:
+        for pathSpot in cameFrom:
+            ui.drawCell(pathSpot, "blue", maze)
+        print("AStar done")
 
     ui.update()
