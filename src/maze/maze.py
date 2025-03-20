@@ -1,7 +1,7 @@
 from maze.Spot import Spot
 
-rows = 50
-cols = 50
+rows = 25
+cols = 25
 
 def generateMaze():
     # Generate grid

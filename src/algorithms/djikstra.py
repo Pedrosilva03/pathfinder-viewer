@@ -5,3 +5,56 @@ def djikstraSimulation(ui, maze):
 
     ui.drawCell(start, "green", maze)
     ui.drawCell(end, "red", maze)
+
+    nodesQueue = []
+    visited = []
+
+    cameFrom = []
+
+    start.setDistance(0)
+    nodesQueue.append(start)
+
+    while len(nodesQueue) > 0:
+        current = nodesQueue[0]
+
+        if current is end:
+            while True:
+                cameFrom.append(current)
+                if current.getDistance() == 0:
+                    break
+
+                currentShortestCoord = current.getNeighbours()[0]
+                currentShortest = maze[currentShortestCoord[0]][currentShortestCoord[1]]
+                for neighbourCoord in current.getNeighbours():
+                    neighbour = maze[neighbourCoord[0]][neighbourCoord[1]]
+                    if neighbour.getDistance() < currentShortest.getDistance():
+                        currentShortest = neighbour
+
+                current = currentShortest
+            break
+
+
+        visited.append(current)
+        del nodesQueue[0]
+        for neighbourCoord in current.getNeighbours():
+            neighbour = maze[neighbourCoord[0]][neighbourCoord[1]]
+            if neighbour not in visited and not neighbour.getWallStatus() and neighbour not in nodesQueue:
+                neighbour.setCameFrom(current)
+                neighbour.setDistance(current.getDistance() + 1)
+                nodesQueue.append(neighbour)
+
+        for queuedElement in nodesQueue:
+            ui.drawCell(queuedElement, "green", maze)
+
+        ui.drawCell(visited[-1], "red", maze)
+
+        ui.update()
+
+    # Draws the way back
+
+    if len(cameFrom) == 0:
+        print("No path found")
+    else:
+        for pathSpot in cameFrom:
+            ui.drawCell(pathSpot, "blue", maze)
+        print("Djikstra done")
