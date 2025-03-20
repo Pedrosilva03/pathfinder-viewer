@@ -5,6 +5,8 @@ class Spot:
         self.i = i
         self.j = j
 
+        self.cell = None
+
         self.neighbours = []
 
         self.f = 0
@@ -20,6 +22,12 @@ class Spot:
     
     def getj(self):
         return self.j
+    
+    def getCell(self):
+        return self.cell
+    
+    def setCell(self, cell):
+        self.cell = cell
     
     def getNeighbours(self):
         return self.neighbours

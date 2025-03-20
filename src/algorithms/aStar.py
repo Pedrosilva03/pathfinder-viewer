@@ -53,8 +53,7 @@ def aStarSimulation(ui, maze):
         for openSetElement in openSet:
             ui.drawCell(openSetElement, "green", maze)
 
-        for closedSetElement in closedSet:
-            ui.drawCell(closedSetElement, "red", maze)
+        ui.drawCell(closedSet[-1], "red", maze)
 
         ui.update()
 

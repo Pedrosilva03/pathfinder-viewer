@@ -51,12 +51,14 @@ class Ui:
 
     def drawCell(self, cell, color, maze):
         # DISCLAIMER: Em células o i representa a linha e o j a coluna mas em x, y é ao contrário (pixeis)
-
-        x1 = cell.getj() * self.width // len(maze) 
-        y1 = cell.geti() * (self.height - 100) // len(maze[0])
-        x2 = (cell.getj() + 1) * self.width // len(maze)
-        y2 = (cell.geti() + 1) * (self.height - 100) // len(maze[0])
-        self.canvas.create_rectangle(x1, y1, x2, y2, fill=color, outline="black")
+        if cell.getCell() is not None:
+            self.canvas.itemconfig(cell.getCell(), fill=color)
+        else:
+            x1 = cell.getj() * self.width // len(maze) 
+            y1 = cell.geti() * (self.height - 100) // len(maze[0])
+            x2 = (cell.getj() + 1) * self.width // len(maze)
+            y2 = (cell.geti() + 1) * (self.height - 100) // len(maze[0])
+            cell.setCell(self.canvas.create_rectangle(x1, y1, x2, y2, fill=color, outline="black"))
 
     def update(self):
         self.window.update()
