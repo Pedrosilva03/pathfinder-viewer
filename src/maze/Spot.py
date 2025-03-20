@@ -66,7 +66,7 @@ class Spot:
         self.neighbours = neighbours
     
     def generateHeuristic(self, end):
-        self.h = abs(self.i - end.i) + abs(self.j + end.j)
+        self.h = abs(self.i - end.i) + abs(self.j - end.j)
         return self.h
     
     def setWallStatus(self):
