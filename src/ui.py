@@ -1,6 +1,9 @@
 from tkinter import *
+import threading
 
 from maze.Spot import Spot
+
+import algorithms.aStar as aStar
 
 class Ui:
     def __init__(self):
@@ -12,15 +15,21 @@ class Ui:
 
         self.aStarButton = None
 
+        self.width = 0
+        self.height = 0
+
     def start(self, maze):
         self.window = Tk()
         self.window.title("Pathfinder Viewer")
         self.window.geometry("600x700")
+        self.window.resizable(False, False)
         self.window.update_idletasks()
 
+        self.width = self.window.winfo_width()
+        self.height = self.window.winfo_height()
         # Grid frame
 
-        self.canvas = Canvas(self.window, width=self.window.winfo_width(), height=self.window.winfo_height() - 100, bg="white")
+        self.canvas = Canvas(self.window, width=self.width, height=self.height - 100, bg="white")
         self.canvas.pack(fill="both", expand=True)
 
         for i in range(len(maze)):
@@ -31,12 +40,20 @@ class Ui:
         self.buttonFrame = Frame(self.window)
         self.buttonFrame.pack(pady=10)
 
-        self.aStarButton = Button(self.buttonFrame, text="A*", width=10)
+        self.aStarButton = Button(self.buttonFrame, text="A*", width=10, command=lambda:aStar.aStarSimulation(self, maze))
+        #self.aStarButton = Button(self.buttonFrame, text="A*", width=10, command=lambda:threading.Thread(target=aStar.aStarSimulation, args=(self, maze)).start())
         self.aStarButton.pack(side=LEFT, padx=5)
 
         self.window.mainloop()
 
     def drawCell(self, cell, color, maze):
-        x1, y1 = cell.getj() * self.window.winfo_width() // len(maze), cell.geti() * (self.window.winfo_height() - 100) // len(maze[0])
-        x2, y2 = (cell.getj() + 1) * self.window.winfo_width() // len(maze), (cell.geti() + 1) * (self.window.winfo_height() - 100) // len(maze[0])
+        # DISCLAIMER: Em células o i representa a linha e o j a coluna mas em x, y é ao contrário (pixeis)
+
+        x1 = cell.getj() * self.width // len(maze) 
+        y1 = cell.geti() * (self.height - 100) // len(maze[0])
+        x2 = (cell.getj() + 1) * self.width // len(maze)
+        y2 = (cell.geti() + 1) * (self.height - 100) // len(maze[0])
         self.canvas.create_rectangle(x1, y1, x2, y2, fill=color, outline="black")
+
+    def update(self):
+        self.window.update()
