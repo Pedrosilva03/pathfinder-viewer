@@ -9,6 +9,8 @@ class Spot:
         self.g = 0
         self.h = 0
 
+        self.cameFrom = None
+
     def geti(self):
         return self.i
     
@@ -32,6 +34,12 @@ class Spot:
     
     def geth(self):
         return self.h
+    
+    def setCameFrom(self, spot):
+        self.cameFrom = spot
+
+    def getCameFrom(self):
+        return self.cameFrom
     
     def createNeighbours(self, maze):
         neighbours = []

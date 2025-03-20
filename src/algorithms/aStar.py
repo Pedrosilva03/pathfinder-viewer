@@ -11,6 +11,8 @@ def aStarSimulation(ui, maze):
 
     cameFrom = []
 
+    backTrack = []
+
     openSet.append(start)
 
     while len(openSet) > 0:
@@ -23,8 +25,11 @@ def aStarSimulation(ui, maze):
 
         # Checks if it got to the end
         if current is end:
-            print("DONE")
-            # Reconstruct path
+            while True:
+                backTrack.append(current)
+                if current.getCameFrom() is None:
+                    break
+                current = current.getCameFrom()
             break
 
         del openSet[lowestFIndex]
@@ -43,6 +48,7 @@ def aStarSimulation(ui, maze):
 
             neighbour.setg(tryG)
             neighbour.setf(neighbour.getg() + neighbour.generateHeuristic(end))
+            neighbour.setCameFrom(current)
 
         for openSetElement in openSet:
             ui.drawCell(openSetElement, "green", maze)
@@ -51,3 +57,10 @@ def aStarSimulation(ui, maze):
             ui.drawCell(closedSetElement, "red", maze)
 
         ui.update()
+
+    # Draws the way back
+
+    for pathSpot in backTrack:
+        ui.drawCell(pathSpot, "blue", maze)
+
+    ui.update()
