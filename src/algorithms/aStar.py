@@ -37,7 +37,7 @@ def aStarSimulation(ui, maze):
 
         for neighbourCoord in current.getNeighbours():
             neighbour = maze[neighbourCoord[0]][neighbourCoord[1]]
-            if neighbour in closedSet:
+            if neighbour in closedSet or neighbour.getWallStatus():
                 continue # Spot was already evaluated
 
             tryG = current.getg() + 1

@@ -1,3 +1,5 @@
+import random
+
 class Spot:
     def __init__(self, i, j):
         self.i = i
@@ -10,6 +12,8 @@ class Spot:
         self.h = 0
 
         self.cameFrom = None
+
+        self.wall = self.setWallStatus()
 
     def geti(self):
         return self.i
@@ -56,3 +60,11 @@ class Spot:
     def generateHeuristic(self, end):
         self.h = abs(self.i - end.i) + abs(self.j + end.j)
         return self.h
+    
+    def setWallStatus(self):
+        if random.randint(0, 3) == 3:
+            return True
+        return False
+    
+    def getWallStatus(self):
+        return self.wall

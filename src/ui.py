@@ -34,7 +34,10 @@ class Ui:
 
         for i in range(len(maze)):
             for j in range(len(maze[0])):
-                self.drawCell(maze[i][j], "white", maze)
+                if maze[i][j].getWallStatus():
+                    self.drawCell(maze[i][j], "black", maze)
+                else:
+                    self.drawCell(maze[i][j], "white", maze)
 
         # Button frame
         self.buttonFrame = Frame(self.window)
