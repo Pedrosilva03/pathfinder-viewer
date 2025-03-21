@@ -16,7 +16,15 @@ def djikstraSimulation(ui, maze):
     nodesQueue.append(start)
 
     while len(nodesQueue) > 0:
+        # Gets the node with the shortest cost
         current = nodesQueue[0]
+        currentIndex = 0
+        nodeIndex = 0
+        for node in nodesQueue:
+            if node.getDistance() < current.getDistance():
+                current = node
+                currentIndex = nodeIndex
+            nodeIndex += 1
 
         if current is end:
             while True:
@@ -36,7 +44,7 @@ def djikstraSimulation(ui, maze):
 
 
         visited.append(current)
-        del nodesQueue[0]
+        del nodesQueue[currentIndex]
         for neighbourCoord in current.getNeighbours():
             neighbour = maze[neighbourCoord[0]][neighbourCoord[1]]
             if neighbour not in visited and not neighbour.getWallStatus() and neighbour not in nodesQueue:
