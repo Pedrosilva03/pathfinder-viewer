@@ -5,6 +5,7 @@ from maze.Spot import Spot
 
 import algorithms.aStar as aStar
 import algorithms.djikstra as djikstra
+import algorithms.bfs as bfs
 
 class Ui:
     def __init__(self):
@@ -51,6 +52,10 @@ class Ui:
         self.djikstraButton = Button(self.buttonFrame, text="Djikstra", width=10, command=lambda:djikstra.djikstraSimulation(self, maze))
         #self.djikstraButton = Button(self.buttonFrame, text="Djikstra", width=10, command=lambda:threading.Thread(target=djikstra.djikstraSimulation, args=(self, maze)).start())
         self.djikstraButton.pack(side=LEFT, padx=5)
+
+        self.BFSButton = Button(self.buttonFrame, text="BFS", width=10, command=lambda:bfs.bfsSimulation(self, maze))
+        #self.BFSButton = Button(self.buttonFrame, text="BFS", width=10, command=lambda:threading.Thread(target=bfs.bfsSimulation, args=(self, maze)).start())
+        self.BFSButton.pack(side=LEFT, padx=5)
 
         self.window.mainloop()
 

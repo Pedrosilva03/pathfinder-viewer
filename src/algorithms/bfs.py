@@ -1,7 +1,6 @@
 import random
 
-# This is pretty much a BFS but using a random cost for each jump instead of a constant one
-def djikstraSimulation(ui, maze):
+def bfsSimulation(ui, maze):
     start, end = maze[random.randint(0, len(maze) - 1)][0], maze[random.randint(0, len(maze[0]) - 1)][len(maze) - 1]
 
     ui.drawCell(start, "green", maze)
@@ -41,7 +40,7 @@ def djikstraSimulation(ui, maze):
             neighbour = maze[neighbourCoord[0]][neighbourCoord[1]]
             if neighbour not in visited and not neighbour.getWallStatus() and neighbour not in nodesQueue:
                 neighbour.setCameFrom(current)
-                neighbour.setDistance(current.getDistance() + random.randint(1, 10))
+                neighbour.setDistance(current.getDistance() + 1)
                 nodesQueue.append(neighbour)
 
         for queuedElement in nodesQueue:
@@ -58,4 +57,4 @@ def djikstraSimulation(ui, maze):
     else:
         for pathSpot in cameFrom:
             ui.drawCell(pathSpot, "blue", maze)
-        print("Djikstra done")
+        print("BFS done")
