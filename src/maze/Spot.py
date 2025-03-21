@@ -17,7 +17,7 @@ class Spot:
 
         self.cameFrom = None
 
-        self.wall = self.setWallStatus()
+        self.wall = False
 
     #####
     def geti(self):
@@ -83,14 +83,15 @@ class Spot:
     
     #####
     def generateHeuristic(self, end):
+        if end is self:
+            self.h = 0
+            return self.h
         self.h = abs(self.i - end.i) + abs(self.j - end.j)
         return self.h
     
     #####
-    def setWallStatus(self):
-        if random.randint(0, 3) == 3:
-            return True
-        return False
+    def setWallStatus(self, status):
+        self.wall = status
     
     def getWallStatus(self):
         return self.wall
