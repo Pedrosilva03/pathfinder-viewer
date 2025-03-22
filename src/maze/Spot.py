@@ -71,14 +71,25 @@ class Spot:
     #####
     def createNeighbours(self, maze):
         neighbours = []
+        # Vizinhos ortogonais (cima, baixo, esquerda, direita)
         if self.i > 0:
-            neighbours.append((self.i - 1, self.j))
+            neighbours.append((self.i - 1, self.j))  # Cima
         if self.i < len(maze) - 1:
-            neighbours.append((self.i + 1, self.j))
+            neighbours.append((self.i + 1, self.j))  # Baixo
         if self.j > 0:
-            neighbours.append((self.i, self.j - 1))
+            neighbours.append((self.i, self.j - 1))  # Esquerda
         if self.j < len(maze[0]) - 1:
-            neighbours.append((self.i, self.j + 1))
+            neighbours.append((self.i, self.j + 1))  # Direita
+
+        # Vizinhos diagonais
+        if self.i > 0 and self.j > 0:
+            neighbours.append((self.i - 1, self.j - 1))  # Superior esquerdo
+        if self.i > 0 and self.j < len(maze[0]) - 1:
+            neighbours.append((self.i - 1, self.j + 1))  # Superior direito
+        if self.i < len(maze) - 1 and self.j > 0:
+            neighbours.append((self.i + 1, self.j - 1))  # Inferior esquerdo
+        if self.i < len(maze) - 1 and self.j < len(maze[0]) - 1:
+            neighbours.append((self.i + 1, self.j + 1))  # Inferior direito
         self.neighbours = neighbours
     
     #####

@@ -3,6 +3,9 @@ import random
 def bfsSimulation(ui, maze):
     start, end = maze[random.randint(0, len(maze) - 1)][0], maze[random.randint(0, len(maze[0]) - 1)][len(maze) - 1]
 
+    start.setWallStatus(False) # Makes sure that the start and the end are not walls
+    end.setWallStatus(False)
+
     ui.drawCell(start, "green", maze)
     ui.drawCell(end, "red", maze)
 
@@ -43,7 +46,7 @@ def bfsSimulation(ui, maze):
                 neighbour.setDistance(current.getDistance() + 1)
                 nodesQueue.append(neighbour)
 
-        for queuedElement in nodesQueue:
+        for queuedElement in nodesQueue[-8:]:
             ui.drawCell(queuedElement, "green", maze)
 
         ui.drawCell(visited[-1], "red", maze)
