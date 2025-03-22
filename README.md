@@ -15,7 +15,6 @@ A collection of pathfinding algorithms animated on a random maze
 
 ## TODO
 - Add more algorithms
-- Support to diagonals
 
 ## Execution
 To execute the program just run this command on the root of this repository
