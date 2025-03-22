@@ -1,4 +1,4 @@
-import random
+import random, time
 import sys
 
 sys.setrecursionlimit(10**6)
@@ -36,6 +36,8 @@ def dfsSimulation(ui, maze):
     if recursiveChecking(start):
         for pathSpot in path:
             ui.drawCell(pathSpot, "blue", maze)
+            ui.update()
+            time.sleep(0.01)
         print("DFS done")
     else:
         print("No path found")

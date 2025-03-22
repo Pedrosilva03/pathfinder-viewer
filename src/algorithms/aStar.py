@@ -65,6 +65,8 @@ def aStarSimulation(ui, maze):
     else:
         for pathSpot in cameFrom:
             ui.drawCell(pathSpot, "blue", maze)
+            ui.update()
+            time.sleep(0.01)
         print("AStar done")
 
     ui.update()

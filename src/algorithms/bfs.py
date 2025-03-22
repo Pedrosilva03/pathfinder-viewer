@@ -1,4 +1,4 @@
-import random
+import random, time
 
 def bfsSimulation(ui, maze):
     start, end = maze[random.randint(0, len(maze) - 1)][0], maze[random.randint(0, len(maze[0]) - 1)][len(maze) - 1]
@@ -60,4 +60,6 @@ def bfsSimulation(ui, maze):
     else:
         for pathSpot in cameFrom:
             ui.drawCell(pathSpot, "blue", maze)
+            ui.update()
+            time.sleep(0.01)
         print("BFS done")
