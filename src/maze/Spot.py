@@ -9,7 +9,9 @@ class Spot:
 
         self.neighbours = []
 
-        self.distSource = 999999
+        self.distSource = 999999 # Calculated in real time by the algorithms for simplification
+
+        self.distanceLeft = 0 # Distance left to the end
 
         self.f = 0
         self.g = 0
@@ -37,11 +39,19 @@ class Spot:
     def getNeighbours(self):
         return self.neighbours
     
+    ####
     def getDistance(self):
         return self.distSource
     
     def setDistance(self, dist):
         self.distSource = dist
+
+    ####
+    def setDistanceLeft(self, distLeft):
+        self.distanceLeft = distLeft
+
+    def getDistanceLeft(self):
+        return self.distanceLeft
     
     #####
     def getf(self):

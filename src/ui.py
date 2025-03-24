@@ -1,5 +1,5 @@
 from tkinter import *
-import threading
+import threading, random
 
 from maze.Spot import Spot
 
@@ -21,7 +21,7 @@ class Ui:
         self.width = 0
         self.height = 0
 
-    def start(self, maze):
+    def setupWindow(self):
         self.window = Tk()
         self.window.title("Pathfinder Viewer")
         self.window.geometry("600x700")
@@ -30,8 +30,8 @@ class Ui:
 
         self.width = self.window.winfo_width()
         self.height = self.window.winfo_height()
-        # Grid frame
 
+    def setupMaze(self, maze):
         self.canvas = Canvas(self.window, width=self.width, height=self.height - 100, bg="white")
         self.canvas.pack(fill="both", expand=True)
 
@@ -42,6 +42,7 @@ class Ui:
                 else:
                     self.drawCell(maze[i][j], "white", maze)
 
+    def setupButtons(self, maze):
         # Button frame
         self.buttonFrame = Frame(self.window)
         self.buttonFrame.pack(pady=10)
@@ -61,6 +62,13 @@ class Ui:
         self.DFSButton = Button(self.buttonFrame, text="DFS", width=10, command=lambda:dfs.dfsSimulation(self, maze))
         #self.DFSButton = Button(self.buttonFrame, text="DFS", width=10, command=lambda:threading.Thread(target=dfs.bfsSimulation, args=(self, maze)).start())
         self.DFSButton.pack(side=LEFT, padx=5)
+
+    def start(self, maze):
+        self.setupWindow()
+
+        self.setupMaze(maze)
+
+        self.setupButtons(maze)
 
         self.window.mainloop()
 
