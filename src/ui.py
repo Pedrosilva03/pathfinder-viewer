@@ -7,6 +7,7 @@ import algorithms.aStar as aStar
 import algorithms.djikstra as djikstra
 import algorithms.bfs as bfs
 import algorithms.dfs as dfs
+import algorithms.greedy as greedy
 
 class Ui:
     def __init__(self):
@@ -42,33 +43,47 @@ class Ui:
                 else:
                     self.drawCell(maze[i][j], "white", maze)
 
-    def setupButtons(self, maze):
+        start, end = maze[random.randint(0, len(maze) - 1)][0], maze[random.randint(0, len(maze) - 1)][len(maze[0]) - 1]
+
+        start.setWallStatus(False) # Makes sure that the start and the end are not walls
+        end.setWallStatus(False)
+
+        self.drawCell(start, "green", maze)
+        self.drawCell(end, "red", maze)
+
+        return start, end
+
+    def setupButtons(self, maze, start, end):
         # Button frame
         self.buttonFrame = Frame(self.window)
         self.buttonFrame.pack(pady=10)
 
-        self.aStarButton = Button(self.buttonFrame, text="A*", width=10, command=lambda:aStar.aStarSimulation(self, maze))
-        #self.aStarButton = Button(self.buttonFrame, text="A*", width=10, command=lambda:threading.Thread(target=aStar.aStarSimulation, args=(self, maze)).start())
+        self.aStarButton = Button(self.buttonFrame, text="A*", width=10, command=lambda:aStar.aStarSimulation(self, maze, start, end))
+        #self.aStarButton = Button(self.buttonFrame, text="A*", width=10, command=lambda:threading.Thread(target=aStar.aStarSimulation, args=(self, maze, start, end)).start())
         self.aStarButton.pack(side=LEFT, padx=5)
 
-        self.djikstraButton = Button(self.buttonFrame, text="Djikstra", width=10, command=lambda:djikstra.djikstraSimulation(self, maze))
-        #self.djikstraButton = Button(self.buttonFrame, text="Djikstra", width=10, command=lambda:threading.Thread(target=djikstra.djikstraSimulation, args=(self, maze)).start())
+        self.djikstraButton = Button(self.buttonFrame, text="Djikstra", width=10, command=lambda:djikstra.djikstraSimulation(self, maze, start, end))
+        #self.djikstraButton = Button(self.buttonFrame, text="Djikstra", width=10, command=lambda:threading.Thread(target=djikstra.djikstraSimulation, args=(self, maze, start, end)).start())
         self.djikstraButton.pack(side=LEFT, padx=5)
 
-        self.BFSButton = Button(self.buttonFrame, text="BFS", width=10, command=lambda:bfs.bfsSimulation(self, maze))
-        #self.BFSButton = Button(self.buttonFrame, text="BFS", width=10, command=lambda:threading.Thread(target=bfs.bfsSimulation, args=(self, maze)).start())
+        self.BFSButton = Button(self.buttonFrame, text="BFS", width=10, command=lambda:bfs.bfsSimulation(self, maze, start, end))
+        #self.BFSButton = Button(self.buttonFrame, text="BFS", width=10, command=lambda:threading.Thread(target=bfs.bfsSimulation, args=(self, maze, start, end)).start())
         self.BFSButton.pack(side=LEFT, padx=5)
 
-        self.DFSButton = Button(self.buttonFrame, text="DFS", width=10, command=lambda:dfs.dfsSimulation(self, maze))
-        #self.DFSButton = Button(self.buttonFrame, text="DFS", width=10, command=lambda:threading.Thread(target=dfs.bfsSimulation, args=(self, maze)).start())
+        self.DFSButton = Button(self.buttonFrame, text="DFS", width=10, command=lambda:dfs.dfsSimulation(self, maze, start, end))
+        #self.DFSButton = Button(self.buttonFrame, text="DFS", width=10, command=lambda:threading.Thread(target=dfs.dfsSimulation, args=(self, maze, start, end)).start())
         self.DFSButton.pack(side=LEFT, padx=5)
+
+        self.greedyButton = Button(self.buttonFrame, text="Greedy", width=10, command=lambda:greedy.greedySimulation(self, maze, start, end))
+        #self.greedyButton = Button(self.buttonFrame, text="Greedy", width=10, command=lambda:threading.Thread(target=greedy.greedySimulation, args=(self, maze, start, end)).start())
+        self.greedyButton.pack(side=LEFT, padx=5)
 
     def start(self, maze):
         self.setupWindow()
 
-        self.setupMaze(maze)
+        start, end = self.setupMaze(maze)
 
-        self.setupButtons(maze)
+        self.setupButtons(maze, start, end)
 
         self.window.mainloop()
 
