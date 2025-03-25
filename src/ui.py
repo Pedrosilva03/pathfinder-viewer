@@ -51,6 +51,13 @@ class Ui:
         self.drawCell(start, "green", maze)
         self.drawCell(end, "red", maze)
 
+        # Generate distances to the end (for greedy)
+
+        for i in range(len(maze)):
+            for j in range(len(maze[0])):
+                maze[i][j].setDistanceLeft((abs(i - end.geti()) + abs(j - end.getj())) - random.randint(0, 10))
+
+
         return start, end
 
     def setupButtons(self, maze, start, end):
