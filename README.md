@@ -6,15 +6,17 @@ A collection of pathfinding algorithms animated on a random maze
 ## Features
 - Visited nodes
 - Nodes to be visited
-- Path found
+- Path found animated
 
 ## Algorithms
 - A*
 - Djikstra
-- DFS
+- BFS (Breadth-First Search)
+- DFS (Depth-First Search)
+- GBFS (Greedy Best-First Search)
 
 ## TODO
-- Add more algorithms
+- Feature to reset the program without closing it
 
 ## Execution
 To execute the program just run this command on the root of this repository
